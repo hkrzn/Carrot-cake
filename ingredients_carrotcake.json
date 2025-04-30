@@ -1,10 +1,70 @@
-    {"nom":"Huile végétale", "code_barres":"3265471024086", "nutriscore":"C"},
-    {"nom":"Sucre poudre", "code_barres":"3174660583634", "nutriscore":"A"},
-    {"nom":"Farine de blé fluide", "code_barres":"3760096921029", "nutriscore":"A"},
-    {"nom":"Caramel Liquide", "code_barres":"3162050007020", "nutriscore":"D"},
-    {"nom":"Muscade rapée", "code_barres":"3256228100214", "nutriscore":"D"},
-    {"nom":"Levure Chimique", "code_barres":"8712100724572", "nutriscore":"NA"},
-    {"nom":"Carottes", "code_barres":"5400101224186", "nutriscore":"A"},
-    {"nom":"oeuf", "code_barres":"3245412846991", "nutriscore":"A"},
-    {"nom":"Cannelle moulue", "code_barres":"3256228099709", "nutriscore":"A"},
-    {"nom":"Noix de Macadamia Concassées", "code_barres":"3179142040063", "nutriscore":"NA"}
+{
+    "ingredient": "Huile Cœur de Tournesol",
+    "code_barre": "3265471024086",
+    "nutriscore": "C",
+    "product_image": "https://images.openfoodfacts.net/images/products/326/547/102/4086/front_fr.69.200.jpg",
+    "nutriscore_image": "https://static.openfoodfacts.org/images/attributes/dist/nutriscore-c.svg"
+  },
+  {
+    "ingredient": "Sucre poudre bio",
+    "code_barre": "3174660583634",
+    "nutriscore": "A",
+    "product_image": "https://images.openfoodfacts.net/images/products/317/466/058/3634/front_fr.3.200.jpg",
+    "nutriscore_image": "https://static.openfoodfacts.org/images/attributes/dist/nutriscore-a.svg"
+  },
+  {
+    "ingredient": "Farine de blé fluide",
+    "code_barre": "3760096921029",
+    "nutriscore": "A",
+    "product_image": "https://images.openfoodfacts.net/images/products/376/009/692/1029/front_fr.3.200.jpg",
+    "nutriscore_image": "https://static.openfoodfacts.org/images/attributes/dist/nutriscore-a.svg"
+  },
+  {
+    "ingredient": "Caramel Liquide à La Vanille Naturel",
+    "code_barre": "3162050007020",
+    "nutriscore": "D",
+    "product_image": "https://images.openfoodfacts.net/images/products/316/205/000/7020/front_fr.9.200.jpg",
+    "nutriscore_image": "https://static.openfoodfacts.org/images/attributes/dist/nutriscore-d.svg"
+  },
+  {
+    "ingredient": "Muscade et rape",
+    "code_barre": "3256228100214",
+    "nutriscore": "D",
+    "product_image": "https://images.openfoodfacts.net/images/products/325/622/810/0214/front_fr.8.200.jpg",
+    "nutriscore_image": "https://static.openfoodfacts.org/images/attributes/dist/nutriscore-d.svg"
+  },
+  {
+    "ingredient": "Levure Chimique Alsacienne",
+    "code_barre": "8712100724572",
+    "nutriscore": "NOT-APPLICABLE",
+    "product_image": "https://images.openfoodfacts.net/images/products/871/210/072/4572/front_en.149.200.jpg",
+    "nutriscore_image": "https://static.openfoodfacts.org/images/attributes/dist/nutriscore-not-applicable.svg"
+  },
+  {
+    "ingredient": "Carottes",
+    "code_barre": "5400101224186",
+    "nutriscore": "A",
+    "product_image": "https://images.openfoodfacts.net/images/products/540/010/122/4186/front_fr.4.200.jpg",
+    "nutriscore_image": "https://static.openfoodfacts.org/images/attributes/dist/nutriscore-a.svg"
+  },
+  {
+    "ingredient": "Œufs de poules élevées en plein air* *conformément au mode de production biologique",
+    "code_barre": "3245412846991",
+    "nutriscore": "A",
+    "product_image": "https://images.openfoodfacts.net/images/products/324/541/284/6991/front_fr.112.200.jpg",
+    "nutriscore_image": "https://static.openfoodfacts.org/images/attributes/dist/nutriscore-a.svg"
+  },
+  {
+    "ingredient": "Cannelle moulue",
+    "code_barre": "3256228099709",
+    "nutriscore": "A",
+    "product_image": "https://images.openfoodfacts.net/images/products/325/622/809/9709/front_fr.8.200.jpg",
+    "nutriscore_image": "https://static.openfoodfacts.org/images/attributes/dist/nutriscore-a.svg"
+  },
+  {
+    "ingredient": "Noix de Macadamia Concassées",
+    "code_barre": "3179142040063",
+    "nutriscore": "UNKNOWN",
+    "product_image": "https://images.openfoodfacts.net/images/products/317/914/204/0063/front_fr.3.200.jpg",
+    "nutriscore_image": "https://static.openfoodfacts.org/images/attributes/dist/nutriscore-unknown.svg"
+  }
