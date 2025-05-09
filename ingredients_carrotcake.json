@@ -1,4 +1,4 @@
-{
+[{
     "ingredient": "Huile Cœur de Tournesol",
     "code_barre": "3265471024086",
     "nutriscore": "C",
@@ -68,3 +68,4 @@
     "product_image": "https://images.openfoodfacts.net/images/products/317/914/204/0063/front_fr.3.200.jpg",
     "nutriscore_image": "https://static.openfoodfacts.org/images/attributes/dist/nutriscore-unknown.svg"
   }
+]

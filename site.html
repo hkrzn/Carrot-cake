@@ -132,7 +132,61 @@
         </div>
 
         <div class="card">
-            <h2>Ingrédients</h2>
+            <h2 class="h4 mb-4 border-bottom pb-2">Ingrédients</h2>
+            <div class="row" id="ingredients">
+            <script>
+            const listIngredients = document.getElementById('ingredients');
+
+            fetch('./ingredients_carrotcake.json').then(data => {
+                if (!data.ok) {
+                    throw new Error("Une erreur s'est produite", data.code)
+                }
+                return data.json()
+            }).then(data => addIngredients(data));
+
+            function addIngredients(ingredients) {
+                for (let i = 0; i < ingredients.length; i++) {
+
+                    fetch(`https://world.openfoodfacts.net/api/v2/product/${ingredients[i].code_barre}?fields=image_front_small_url,quantity,nutriscore_grade,product_name`)
+                        .then(data => {
+                            if (!data.ok) {
+                                throw new Error("Erreur s'est produite")
+                            } return data.json()
+                        })
+                        .then(data => {
+                            customComponent(data)
+
+                        }).catch(error => console.log(error));
+
+
+                }
+
+                function customComponent(item) {
+
+                    const content = document.createElement('div')
+                    content.setAttribute('class', 'col-lg-4')
+                    const nutriscore_grade = item.product.nutriscore_grade || 'Inconnu';
+
+                    content.innerHTML = `
+                            <img src=${item.product.image_front_small_url}
+                                alt="" srcset="" class="image-ingredient">
+                            <li class="step">
+                                <span class="me-2"></span>${item.product.quantity}  ${item.product.product_name}
+                            </li>
+                                <img src="https://static.openfoodfacts.org/images/attributes/dist/nutriscore-${nutriscore_grade.toLowerCase()}.svg"
+     alt="Nutri-score ${nutriscore_grade}" style="height: 25px;">
+
+            `;
+
+                    listIngredients.appendChild(content);
+
+                }
+            }
+
+            const ingredientsContainer = document.getElementById('ingredients');
+
+            </script>
+            </div>
         </div>
 
         <div class="card">
