@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Recette | Carrot Cake</title>
-    <link rel="canonical" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js">
 
     <style>
         body {
@@ -76,13 +75,6 @@
             border-radius: 10px;
         }
 
-        .nutriscore {
-            font-size: 2.5rem;
-            color: #28a745;
-            font-weight: 800;
-            text-align: center;
-        }
-
         .btn-link {
             display: inline-block;
             margin-top: 20px;
@@ -105,6 +97,54 @@
             padding: 20px;
             margin-top: 40px;
         }
+
+        /* Nouveau design ingrédients */
+        .ingredient-modern {
+            display: flex;
+            align-items: center;
+            background-color: #fff;
+            border-left: 5px solid #ED9121;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+            padding: 15px;
+            margin-bottom: 20px;
+            transition: transform 0.2s ease;
+        }
+
+        .ingredient-modern:hover {
+            transform: scale(1.01);
+        }
+
+        .ingredient-img {
+            width: 70px;
+            height: 70px;
+            border-radius: 10px;
+            object-fit: cover;
+            margin-right: 20px;
+            flex-shrink: 0;
+        }
+
+        .ingredient-details {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .ingredient-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .ingredient-quantity {
+            font-size: 0.95rem;
+            color: #666;
+        }
+
+        .ingredient-nutriscore {
+            height: 28px;
+            margin-top: 5px;
+        }
     </style>
 </head>
 <body>
@@ -117,6 +157,7 @@
             <img src="https://i.postimg.cc/XNP4tg89/136222-w1024h1024c1cx2941cy1875cxt0cyt0cxb5616cyb3743.webp" alt="Carrot Cake"
                  style="width: 500px; max-width: 90%; height: auto; border-radius: 15px; box-shadow: 0 6px 12px rgba(0,0,0,0.1); margin: 20px auto;">
         </div>
+
         <div class="card">
             <h2>Informations</h2>
             <ul class="info">
@@ -126,67 +167,62 @@
             </ul>
         </div>
 
+        <!-- SECTION INGRÉDIENTS MODERNE -->
         <div class="card">
-            <h2>NutriScore</h2>
-            <div class="nutriscore">À compléter</div>
-        </div>
+            <h2>Ingrédients</h2>
+            <div class="row" id="ingredients"></div>
 
-        <div class="card">
-            <h2 class="h4 mb-4 border-bottom pb-2">Ingrédients</h2>
-            <div class="row" id="ingredients">
             <script>
-            const listIngredients = document.getElementById('ingredients');
+                const listIngredients = document.getElementById('ingredients');
 
-            fetch('./ingredients_carrotcake.json').then(data => {
-                if (!data.ok) {
-                    throw new Error("Une erreur s'est produite", data.code)
+                fetch('./ingredients_carrotcake.json')
+                    .then(data => {
+                        if (!data.ok) {
+                            throw new Error("Une erreur s'est produite");
+                        }
+                        return data.json();
+                    })
+                    .then(data => addIngredients(data));
+
+                function addIngredients(ingredients) {
+                    for (let i = 0; i < ingredients.length; i++) {
+                        fetch(`https://world.openfoodfacts.net/api/v2/product/${ingredients[i].code_barre}?fields=image_front_small_url,quantity,nutriscore_grade,product_name`)
+                            .then(data => {
+                                if (!data.ok) {
+                                    throw new Error("Erreur lors du chargement d'un ingrédient");
+                                }
+                                return data.json();
+                            })
+                            .then(data => {
+                                customComponent(data);
+                            })
+                            .catch(error => console.log(error));
+                    }
+
+                    function customComponent(item) {
+                        const content = document.createElement('div');
+                        content.setAttribute('class', 'col-lg-6');
+
+                        const nutriscore = item.product.nutriscore_grade?.toLowerCase() || 'inconnu';
+                        const image = item.product.image_front_small_url || '';
+                        const name = item.product.product_name || 'Nom inconnu';
+                        const quantity = item.product.quantity || 'Quantité inconnue';
+
+                        content.innerHTML = `
+                            <div class="ingredient-modern">
+                                <img src="${image}" alt="${name}" class="ingredient-img">
+                                <div class="ingredient-details">
+                                    <div class="ingredient-name">${name}</div>
+                                    <div class="ingredient-quantity">${quantity}</div>
+                                    <img class="ingredient-nutriscore" src="https://static.openfoodfacts.org/images/attributes/dist/nutriscore-${nutriscore}.svg" alt="Nutri-score ${nutriscore}">
+                                </div>
+                            </div>
+                        `;
+
+                        listIngredients.appendChild(content);
+                    }
                 }
-                return data.json()
-            }).then(data => addIngredients(data));
-
-            function addIngredients(ingredients) {
-                for (let i = 0; i < ingredients.length; i++) {
-
-                    fetch(`https://world.openfoodfacts.net/api/v2/product/${ingredients[i].code_barre}?fields=image_front_small_url,quantity,nutriscore_grade,product_name`)
-                        .then(data => {
-                            if (!data.ok) {
-                                throw new Error("Erreur s'est produite")
-                            } return data.json()
-                        })
-                        .then(data => {
-                            customComponent(data)
-
-                        }).catch(error => console.log(error));
-
-
-                }
-
-                function customComponent(item) {
-
-                    const content = document.createElement('div')
-                    content.setAttribute('class', 'col-lg-4')
-                    const nutriscore_grade = item.product.nutriscore_grade || 'Inconnu';
-
-                    content.innerHTML = `
-                            <img src=${item.product.image_front_small_url}
-                                alt="" srcset="" class="image-ingredient">
-                            <li class="step">
-                                <span class="me-2"></span>${item.product.quantity}  ${item.product.product_name}
-                            </li>
-                                <img src="https://static.openfoodfacts.org/images/attributes/dist/nutriscore-${nutriscore_grade.toLowerCase()}.svg"
-     alt="Nutri-score ${nutriscore_grade}" style="height: 25px;">
-
-            `;
-
-                    listIngredients.appendChild(content);
-
-                }
-            }
-
-            const ingredientsContainer = document.getElementById('ingredients');
-
             </script>
-            </div>
         </div>
 
         <div class="card">
@@ -212,3 +248,4 @@
     </footer>
 </body>
 </html>
+
