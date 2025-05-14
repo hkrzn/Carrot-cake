@@ -1,4 +1,5 @@
-[{
+[
+  {
     "ingredient": "Huile Cœur de Tournesol",
     "code_barre": "3265471024086",
     "nutriscore": "C",
@@ -20,21 +21,21 @@
     "nutriscore_image": "https://static.openfoodfacts.org/images/attributes/dist/nutriscore-a.svg"
   },
   {
-    "ingredient": "Caramel Liquide à La Vanille Naturel",
+    "ingredient": "Caramel à la vanille",
     "code_barre": "3162050007020",
     "nutriscore": "D",
     "product_image": "https://images.openfoodfacts.net/images/products/316/205/000/7020/front_fr.9.200.jpg",
     "nutriscore_image": "https://static.openfoodfacts.org/images/attributes/dist/nutriscore-d.svg"
   },
   {
-    "ingredient": "Muscade et rape",
+    "ingredient": "Muscade râpée",
     "code_barre": "3256228100214",
     "nutriscore": "D",
     "product_image": "https://images.openfoodfacts.net/images/products/325/622/810/0214/front_fr.8.200.jpg",
     "nutriscore_image": "https://static.openfoodfacts.org/images/attributes/dist/nutriscore-d.svg"
   },
   {
-    "ingredient": "Levure Chimique Alsacienne",
+    "ingredient": "Levure chimique",
     "code_barre": "8712100724572",
     "nutriscore": "NOT-APPLICABLE",
     "product_image": "https://images.openfoodfacts.net/images/products/871/210/072/4572/front_en.149.200.jpg",
@@ -48,7 +49,7 @@
     "nutriscore_image": "https://static.openfoodfacts.org/images/attributes/dist/nutriscore-a.svg"
   },
   {
-    "ingredient": "Œufs de poules élevées en plein air* *conformément au mode de production biologique",
+    "ingredient": "Œufs",
     "code_barre": "3245412846991",
     "nutriscore": "A",
     "product_image": "https://images.openfoodfacts.net/images/products/324/541/284/6991/front_fr.112.200.jpg",
@@ -62,7 +63,7 @@
     "nutriscore_image": "https://static.openfoodfacts.org/images/attributes/dist/nutriscore-a.svg"
   },
   {
-    "ingredient": "Noix de Macadamia Concassées",
+    "ingredient": "Noix de macadamia",
     "code_barre": "3179142040063",
     "nutriscore": "UNKNOWN",
     "product_image": "https://images.openfoodfacts.net/images/products/317/914/204/0063/front_fr.3.200.jpg",
