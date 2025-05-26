@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Recette | Carrot Cake</title>
-
     <style>
         body {
             margin: 0;
@@ -68,6 +67,18 @@
             background: #f9eaea;
             border-left: 5px solid #ED9121;
             border-radius: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .step.checked {
+            background-color: #e6f9eb !important;
+            border-left: 5px solid #33cc66 !important;
+        }
+
+        .step.checked input[type="checkbox"] {
+            accent-color: #2e8b57;
         }
 
         .btn-link {
@@ -91,9 +102,9 @@
             text-align: center;
             padding: 20px;
             margin-top: 40px;
+            font-size: 0.9rem;
         }
 
-        /* Carte ingrédient moderne */
         .ingredient-modern {
             display: flex;
             align-items: center;
@@ -142,6 +153,12 @@
             margin-top: 5px;
         }
 
+        .nutriscore-center {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
         @media (max-width: 600px) {
             .ingredient-modern {
                 flex-direction: column;
@@ -161,7 +178,11 @@
     <main>
         <div style="text-align:center; margin-top: -20px;">
             <img src="https://i.postimg.cc/XNP4tg89/136222-w1024h1024c1cx2941cy1875cxt0cyt0cxb5616cyb3743.webp" alt="Carrot Cake"
-                 style="width: 500px; max-width: 90%; height: auto; border-radius: 15px; box-shadow: 0 6px 12px rgba(0,0,0,0.1); margin: 20px auto;">
+                style="width: 500px; max-width: 90%; height: auto; border-radius: 15px; box-shadow: 0 6px 12px rgba(0,0,0,0.1); margin: 20px auto;">
+        </div>
+
+        <div class="nutriscore-center">
+            <img src="https://static.openfoodfacts.org/images/misc/nutriscore-b.svg" alt="Nutri-Score B" style="width: 120px; height: auto;">
         </div>
 
         <div class="card">
@@ -173,55 +194,34 @@
             </ul>
         </div>
 
-        <!-- Ingrédients -->
         <div class="card">
             <h2>Ingrédients</h2>
             <div class="row" id="ingredients"></div>
-
             <script>
                 const listIngredients = document.getElementById('ingredients');
-
                 fetch('./ingredients_carrotcake.json')
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error("Erreur de chargement du fichier JSON");
-                        }
-                        return response.json();
-                    })
+                    .then(response => response.json())
                     .then(ingredients => {
-                        for (let i = 0; i < ingredients.length; i++) {
-                            const ing = ingredients[i];
-                            fetch(`https://world.openfoodfacts.net/api/v2/product/${ing.code_barre}?fields=quantity`)
-                                .then(response => {
-                                    if (!response.ok) throw new Error("Erreur API OpenFoodFacts");
-                                    return response.json();
-                                })
-                                .then(apiData => {
-                                    const quantity = apiData.product?.quantity || "Quantité inconnue";
-                                    customComponent(ing, quantity);
-                                })
-                                .catch(error => {
-                                    console.error("Erreur chargement ingrédient :", error);
-                                    customComponent(ing, "Quantité inconnue");
-                                });
-                        }
+                        for (let ing of ingredients) {
+                            const nutriscoreImage = `https://static.openfoodfacts.org/images/misc/nutriscore-${ing.nutriscore.toLowerCase()}.svg`;
 
-                        function customComponent(ingredient, quantity) {
                             const container = document.createElement('div');
-                            container.setAttribute('class', 'col-lg-6');
-
+                            container.className = 'col-lg-6';
                             container.innerHTML = `
                                 <div class="ingredient-modern">
-                                    <img src="${ingredient.product_image}" alt="${ingredient.ingredient}" class="ingredient-img">
+                                    <img src="${ing.image}" alt="${ing.nom}" class="ingredient-img">
                                     <div class="ingredient-details">
-                                        <div class="ingredient-name">${ingredient.ingredient}</div>
-                                        <div class="ingredient-quantity">${quantity}</div>
-                                        <img class="ingredient-nutriscore" src="${ingredient.nutriscore_image}" alt="Nutri-score ${ingredient.nutriscore}">
+                                        <div class="ingredient-name">${ing.nom}</div>
+                                        <div class="ingredient-quantity">Quantité inconnue</div>
+                                        <img class="ingredient-nutriscore" src="${nutriscoreImage}" alt="Nutri-score ${ing.nutriscore}">
                                     </div>
                                 </div>
                             `;
                             listIngredients.appendChild(container);
                         }
+                    })
+                    .catch(error => {
+                        console.error("Erreur chargement du JSON :", error);
                     });
             </script>
         </div>
@@ -229,13 +229,13 @@
         <div class="card">
             <h2>Préparation</h2>
             <div class="steps">
-                <div class="step">1. Mélanger au fouet électrique les 4 œufs et le sucre.</div>
-                <div class="step">2. Incorporer l'extrait de vanille, la muscade, la cannelle et l'huile, toujours à l'aide du fouet électrique.</div>
-                <div class="step">3. Ajouter la farine et la levure. Commencer à mélanger avec le fouet éteint (pour éviter les projections), puis allumer le fouet en augmentant de puissance progressivement jusqu'à obtention d'une pâte lisse.</div>
-                <div class="step">4. Ajouter les carottes râpées et les noix concassées. Mélanger au fouet doucement jusqu'à ce que la pâte soit homogène.</div>
-                <div class="step">5. Ajouter le bouillon petit à petit jusqu'à cuisson complète</div>
-                <div class="step">6. Huiler et fariner légèrement le moule (voire les 2 moules car la dose le permet) et verser la préparation.</div>
-                <div class="step">7. Enfourner 30 à 40 minutes selon votre four à 175° (th 5/6). Piquer pour vérifier que le gâteau soit cuit.</div>
+                <div class="step"><input type="checkbox"> 1. Mélanger au fouet électrique les 4 œufs et le sucre.</div>
+                <div class="step"><input type="checkbox"> 2. Incorporer l'extrait de vanille, la muscade, la cannelle et l'huile, toujours à l'aide du fouet électrique.</div>
+                <div class="step"><input type="checkbox"> 3. Ajouter la farine et la levure. Commencer à mélanger avec le fouet éteint (pour éviter les projections), puis allumer le fouet en augmentant de puissance progressivement jusqu'à obtention d'une pâte lisse.</div>
+                <div class="step"><input type="checkbox"> 4. Ajouter les carottes râpées et les noix concassées. Mélanger au fouet doucement jusqu'à ce que la pâte soit homogène.</div>
+                <div class="step"><input type="checkbox"> 5. Ajouter le bouillon petit à petit jusqu'à cuisson complète</div>
+                <div class="step"><input type="checkbox"> 6. Huiler et fariner légèrement le moule (voire les 2 moules car la dose le permet) et verser la préparation.</div>
+                <div class="step"><input type="checkbox"> 7. Enfourner 30 à 40 minutes selon votre four à 175° (th 5/6). Piquer pour vérifier que le gâteau soit cuit.</div>
             </div>
         </div>
 
@@ -245,7 +245,17 @@
     </main>
 
     <footer>
-        © 2025 IF08 — Tous droits réservés.
+        © 2025 IF08 — Tous droits réservés.<br>
+        Chef de projet : Clara Gullotta, avec une équipe composée de Louis Hennechart, Baptiste Ismedon, Mohamed-Amine Jabote, Hortense Kersuzan, Camille Larde et Alexandre Marteaud
     </footer>
+
+    <script>
+        document.querySelectorAll('.step input[type="checkbox"]').forEach(checkbox => {
+            checkbox.addEventListener('change', function () {
+                const stepDiv = this.parentElement;
+                stepDiv.classList.toggle('checked', this.checked);
+            });
+        });
+    </script>
 </body>
 </html>
